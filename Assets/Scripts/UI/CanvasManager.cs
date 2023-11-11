@@ -109,7 +109,7 @@ public class CanvasManager : MonoBehaviour
 
     void LoadTitle()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneTransitionManager.Instance.LoadScene("MainMenu"); 
     }
     void UnpauseGame()
     {
@@ -184,7 +184,7 @@ public class CanvasManager : MonoBehaviour
     }
     void StartGame()
     {
-        SceneManager.LoadScene("Level"); ;
+        SceneTransitionManager.Instance.LoadScene("Level"); ;
         Time.timeScale = 1.0f;
         if (audioSource != null)
         {
