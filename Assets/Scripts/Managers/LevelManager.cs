@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
 
             timeBetweenEnemies = Random.Range(minSpeed, maxSpeed); 
 
-            Instantiate(enemyPrefab, spawnPoint.transform.position, transform.rotation);
+            //Instantiate(enemyPrefab, spawnPoint.transform.position, transform.rotation);
             Debug.Log("Enemies Spawned");
             currentWaveEnemyCount--;
             currentTime = 0;
