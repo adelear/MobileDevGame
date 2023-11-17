@@ -4,9 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - Ground
-  - Igloo
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -14,7 +12,7 @@ TagManager:
   - EnemyLayer
   - Water
   - UI
-  - 
+  - Obstacle
   - 
   - 
   - 

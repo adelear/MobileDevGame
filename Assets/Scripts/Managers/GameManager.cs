@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameState newState)
     {
-        Debug.Log("New state has been set to " + newState); 
+        //Debug.Log("New state has been set to " + newState); 
         currentState = newState;
         OnGameStateChanged?.Invoke(); 
     }

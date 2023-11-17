@@ -23,6 +23,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] Button settingsButton;
     [SerializeField] Button backButton;
     [SerializeField] Button quitButton;
+    [SerializeField] Button pauseButton; 
     [SerializeField] Button returnToMenuButton;
     [SerializeField] Button resumeGame;
 
@@ -38,6 +39,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] Slider masterSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
+
+
+    private float timeElapsed = 0f;
+    private int lastSecond = 0;
 
     void Start()
     {
@@ -89,7 +94,7 @@ public class CanvasManager : MonoBehaviour
         if (scoreText) 
         {
             GameManager.Instance.OnScoreValueChanged.AddListener((value) => UpdateScoreText(value));
-            scoreText.text = "Score: " + GameManager.Instance.Score.ToString();
+            scoreText.text = "00000" + GameManager.Instance.Score.ToString();
         }
 
         if (resumeGame)
@@ -105,6 +110,12 @@ public class CanvasManager : MonoBehaviour
             AddPointerEnterEvent(returnToMenuTrigger, PlayButtonSound);
             returnToMenuButton.onClick.AddListener(LoadTitle);
         }
+
+        if (pauseButton)
+        {
+            pauseButton.onClick.AddListener(PauseMenu); 
+
+        }
     }
 
     void LoadTitle()
@@ -118,33 +129,40 @@ public class CanvasManager : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
+    void PauseMenu()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        asm.PlayOneShot(pauseSound, false); 
+    }
+
     void UpdateScoreText(int value)
     {
-        scoreText.text = "Score: " + value.ToString();
+        scoreText.text = value.ToString("D6"); 
     }
 
     void Update()
     {
+        timeElapsed += Time.deltaTime;
+        // Check if a whole second has passed
+        int currentSecond = Mathf.FloorToInt(timeElapsed);
+        if (currentSecond > lastSecond)
+        {
+            GameManager.Instance.Score += 1;
+            lastSecond = currentSecond;
+        }
+
         if (!pauseMenu) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (pauseMenu.activeSelf)
         {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            Time.timeScale = 0f;
+            GameManager.Instance.SwitchState(GameManager.GameState.PAUSE);
+            pauseMenu.SetActive(true);
+        }
 
-
-            if (pauseMenu.activeSelf)
-            {
-                Time.timeScale = 0f; 
-                GameManager.Instance.SwitchState(GameManager.GameState.PAUSE);   
-                asm.PlayOneShot(pauseSound, false);
-                pauseMenu.SetActive(true);
-            }
-
-            else
-            {
-                UnpauseGame();
-            }
-
+        else
+        {
+            UnpauseGame();
         }
     }
     void ShowSettingsMenu()
@@ -182,6 +200,7 @@ public class CanvasManager : MonoBehaviour
         settingsMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
+
     void StartGame()
     {
         SceneTransitionManager.Instance.LoadScene("Level"); ;
