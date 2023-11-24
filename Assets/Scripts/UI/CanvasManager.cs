@@ -40,12 +40,20 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
+    [SerializeField] PlayerAbilities player; 
+
 
     private float timeElapsed = 0f;
     private int lastSecond = 0;
 
     void Start()
     {
+        GameObject playerObject = GameObject.Find("Player");
+        if (playerObject != null )
+        {
+            player = playerObject.GetComponent<PlayerAbilities>(); 
+        }
+
         asm = GetComponent<AudioManager>();
         if (startButton)
         {
@@ -144,11 +152,22 @@ public class CanvasManager : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         // Check if a whole second has passed
-        int currentSecond = Mathf.FloorToInt(timeElapsed);
-        if (currentSecond > lastSecond)
+        int milliseconds = Mathf.FloorToInt(timeElapsed * 10);
+        if (milliseconds > lastSecond)
         {
-            GameManager.Instance.Score += 1;
-            lastSecond = currentSecond;
+            if (GameManager.Instance.GetGameState()==GameManager.GameState.GAME && player!=null)
+            {
+                if (player.scoreMultiplierActive)
+                {
+                    GameManager.Instance.Score += 2;
+                    lastSecond = milliseconds;
+                }
+                else
+                {
+                    GameManager.Instance.Score += 1;
+                    lastSecond = milliseconds;
+                }
+            }
         }
 
         if (!pauseMenu) return;

@@ -6,16 +6,40 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform min;
     [SerializeField] Transform max;
-    
+
+    //Swipe Mechanics
     private Vector2 startTouchPos, endTouchPos;
     private Vector3 startPlayerPos, endPlayerPos;
+
+    //Movement 
     private float moveTime;
     private float moveDuration = 0.1f;
     private bool isMoving = false;
 
- 
+    PlayerAbilities ability;
+    Shoot shoot;
+    private bool canShoot = true;
+    private float cooldownDuration = 0.2f; 
+
+    private void Start()
+    {
+        ability = GetComponent<PlayerAbilities>(); 
+        shoot = GetComponent<Shoot>();
+
+    }
+
     private void Update()
     {
+        if (!isMoving && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            startTouchPos = Input.GetTouch(0).position;
+            if (ability.lasersActive && canShoot)
+            {
+                shoot.ShootLaser();
+                StartCoroutine(Cooldown()); 
+            }
+        }
+
         if (!isMoving && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) 
             startTouchPos = Input.GetTouch(0).position; 
 
@@ -34,6 +58,8 @@ public class Player : MonoBehaviour
                 StartCoroutine(Move(1));
             }
         }
+
+
     }
     private IEnumerator Move(int direction)
     {
@@ -68,5 +94,12 @@ public class Player : MonoBehaviour
                 break;
         }
         isMoving = false; 
+    }
+
+    private IEnumerator Cooldown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(cooldownDuration);
+        canShoot = true; 
     }
 }

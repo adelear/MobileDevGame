@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject HealthImg;
     [SerializeField] AudioManager asm; 
     [SerializeField] AudioClip LossSound;
+
+    private int scoreMultiplier; 
     public static GameManager Instance { get; private set; }
     public enum GameState
     {
@@ -37,7 +39,6 @@ public class GameManager : MonoBehaviour
         set
         {
             score = value;
-
             if (OnScoreValueChanged != null)
                 OnScoreValueChanged.Invoke(score); 
         }
@@ -87,17 +88,20 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        SwitchState(GameState.DEFEAT); 
+        SwitchState(GameState.DEFEAT);
         SceneManager.LoadScene("GameOver");
-        asm.PlayOneShot(LossSound, false);  
+        asm.PlayOneShot(LossSound, false);
 
         if (SceneManager.GetActiveScene().name == "GameOver")
+        {
+            SwitchState(GameState.DEFEAT); 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SceneManager.LoadScene("MainMenu");
                 Lives = 3;
                 Score = 3;
             }
+        }
     }
 
     public GameState GetGameState()
