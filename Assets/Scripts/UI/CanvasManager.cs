@@ -33,7 +33,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
 
     [Header("Text")]
-    [SerializeField] TMP_Text scoreText; 
+    [SerializeField] TMP_Text scoreText;
+    [SerializeField] TMP_Text highScoreText; 
 
     [Header("Sliders")]
     [SerializeField] Slider masterSlider;
@@ -105,6 +106,13 @@ public class CanvasManager : MonoBehaviour
             scoreText.text = "00000" + GameManager.Instance.Score.ToString();
         }
 
+        if (highScoreText)
+        {
+            GameManager.Instance.OnHighScoreChanged.AddListener((value) => UpdateHighScoreText(value));
+            highScoreText.text = GameManager.Instance.HighScore.ToString("D6");
+        }
+
+
         if (resumeGame)
         {
             EventTrigger resumeGameTrigger = resumeGame.gameObject.AddComponent<EventTrigger>();
@@ -147,6 +155,13 @@ public class CanvasManager : MonoBehaviour
     {
         scoreText.text = value.ToString("D6"); 
     }
+
+    void UpdateHighScoreText(int value)
+    {
+        highScoreText.text =  value.ToString("D6");
+        if (GameManager.Instance.Score >= GameManager.Instance.HighScore) highScoreText.gameObject.SetActive(false); 
+    }
+ 
 
     void Update()
     {

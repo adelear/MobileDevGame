@@ -16,6 +16,7 @@ public class PowerupSpawners : MonoBehaviour
             int randomPickup = Random.Range(0, pickupSize);
 
             Instantiate(pickups[randomPickup], spawnPoints[i].position, spawnPoints[i].rotation);
+            Destroy(gameObject); 
 
         }
     } 

@@ -9,7 +9,8 @@ public class Powerups : MovingObjects
         Invincibility, 
         ScoreMultiplier,
         Score,  
-        Laser
+        Laser,
+        Nothing
     }
     public PickupType currentPickup;
     public AudioClip pickupSound;
@@ -44,6 +45,12 @@ public class Powerups : MovingObjects
             {
                 PlayerAbilities abilities = collision.gameObject.GetComponent<PlayerAbilities>(); 
                 abilities.StartLasers(); 
+                Destroy(gameObject);
+                return; 
+            }
+
+            else
+            {
                 Destroy(gameObject);
                 return; 
             }

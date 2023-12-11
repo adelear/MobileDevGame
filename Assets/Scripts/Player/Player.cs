@@ -30,6 +30,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (transform.position.y != -3.51)
+        {
+            transform.position = new Vector3(transform.position.x, -3.51f, transform.position.z);
+        } 
         if (!isMoving && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             startTouchPos = Input.GetTouch(0).position;

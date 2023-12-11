@@ -41,16 +41,20 @@ public class MovingObjects : Obstacles
             if (transform.position.y <= obstacleEnd.position.y) ObstacleSpawner.Instance.SpawnObstacle(1);
         }
 
-        if (transform.position.y <= obstacleEnd.position.y)
+        if (transform.position.y <= obstacleEnd.position.y && !gameObject.CompareTag("BG")) 
         {
             OnObstacleDestroyed?.Invoke(gameObject);
             Destroy(gameObject); 
         }
 
-        if (health <= 0)
+        if (health <= 0 && !gameObject.CompareTag("BG")) 
         {
             OnObstacleDestroyed?.Invoke(gameObject); 
             Destroy(gameObject);
         }
+        if (gameObject.CompareTag("BG"))
+        {
+            if (transform.position.y <= obstacleEnd.position.y) transform.position = obstacleStart.position;  
+        } 
     }
 }

@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
         if (Instance != this)
             Destroy(gameObject);
+
+        LoadHighScore(); 
     }
 
     public int Score
@@ -39,6 +41,12 @@ public class GameManager : MonoBehaviour
         set
         {
             score = value;
+            if (score > highScore)
+            {
+                highScore = score;
+                SaveHighScore();
+                OnHighScoreChanged?.Invoke(highScore); 
+            }
             if (OnScoreValueChanged != null)
                 OnScoreValueChanged.Invoke(score); 
         }
@@ -71,6 +79,19 @@ public class GameManager : MonoBehaviour
     private int lives = 3;
     public int maxLives = 3;
 
+    public int HighScore
+    {
+        get => highScore;
+        set
+        {
+            highScore = value;
+            if (OnHighScoreChanged != null)
+                OnHighScoreChanged.Invoke(highScore);
+        }
+    }
+    private int highScore = 0;
+    public UnityEvent<int> OnHighScoreChanged; 
+
     public void DecreaseHealthBar()
     {
         if (HealthImg != null)
@@ -102,6 +123,18 @@ public class GameManager : MonoBehaviour
                 Score = 3;
             }
         }
+    }
+
+    void SaveHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save(); 
+    }
+
+    void LoadHighScore()
+    {
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        OnHighScoreChanged?.Invoke(highScore); 
     }
 
     public GameState GetGameState()
