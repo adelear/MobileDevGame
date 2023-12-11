@@ -110,19 +110,9 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         SwitchState(GameState.DEFEAT);
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("MainMenu");
         asm.PlayOneShot(LossSound, false);
-
-        if (SceneManager.GetActiveScene().name == "GameOver")
-        {
-            SwitchState(GameState.DEFEAT); 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                SceneManager.LoadScene("MainMenu");
-                Lives = 3;
-                Score = 3;
-            }
-        }
+        Lives = 3;
     }
 
     void SaveHighScore()
