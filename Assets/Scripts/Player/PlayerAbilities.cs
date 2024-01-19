@@ -130,11 +130,15 @@ public class PlayerAbilities : MonoBehaviour
     public void StartPowerUp(Sprite powerUpSprite, float duration)
     {
         Debug.Log($"{powerUpSprite.name} started!");
-        if (powerUpCoroutine == null)
+        if (powerUpCoroutine != null)
         {
-            powerUpCoroutine = StartCoroutine(PowerUpEffect(powerUpSprite, duration));
+            StopCoroutine(powerUpCoroutine);
+            powerUpCoroutine = null;
         }
+
+        powerUpCoroutine = StartCoroutine(PowerUpEffect(powerUpSprite, duration));
     }
+
 
     IEnumerator PowerUpEffect(Sprite powerUpSprite, float duration)
     {
