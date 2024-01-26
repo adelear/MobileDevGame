@@ -26,11 +26,15 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] Button pauseButton; 
     [SerializeField] Button returnToMenuButton;
     [SerializeField] Button resumeGame;
+    [SerializeField] Button shopButton;
+    [SerializeField] Button galleryButton; 
 
     [Header("Menus")]
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject shopMenu;
+    [SerializeField] GameObject galleryMenu; 
 
     [Header("Text")]
     [SerializeField] TMP_Text scoreText;
@@ -130,8 +134,33 @@ public class CanvasManager : MonoBehaviour
         if (pauseButton)
         {
             pauseButton.onClick.AddListener(PauseMenu); 
-
         }
+
+        if (shopButton)
+        {
+            shopButton.onClick.AddListener(ShowShopMenu);
+            EventTrigger shopButtonTrigger = shopButton.gameObject.AddComponent<EventTrigger>();
+            AddPointerEnterEvent(shopButtonTrigger, PlayButtonSound);
+        }
+
+        if (galleryButton)
+        {
+            galleryButton.onClick.AddListener(ShowGalleryMenu);
+            EventTrigger galleryButtonTrigger = galleryButton.gameObject.AddComponent<EventTrigger>();
+            AddPointerEnterEvent(galleryButtonTrigger, PlayButtonSound);
+        }
+    }
+
+    void ShowShopMenu()
+    {
+        mainMenu.SetActive(false);
+        shopMenu.SetActive(true);
+    }
+
+    void ShowGalleryMenu()
+    {
+        mainMenu.SetActive(false);
+        galleryMenu.SetActive(true);
     }
 
     void LoadTitle()
@@ -161,47 +190,12 @@ public class CanvasManager : MonoBehaviour
         highScoreText.text =  value.ToString("D6");
         if (GameManager.Instance.Score >= GameManager.Instance.HighScore) highScoreText.gameObject.SetActive(false); 
     }
- 
-
-    void Update()
-    {
-        timeElapsed += Time.deltaTime;
-        // Check if a whole second has passed
-        int milliseconds = Mathf.FloorToInt(timeElapsed * 10);
-        if (milliseconds > lastSecond)
-        {
-            if (GameManager.Instance.GetGameState()==GameManager.GameState.GAME && player!=null)
-            {
-                if (player.scoreMultiplierActive)
-                {
-                    GameManager.Instance.Score += 2;
-                    lastSecond = milliseconds;
-                }
-                else
-                {
-                    GameManager.Instance.Score += 1;
-                    lastSecond = milliseconds;
-                }
-            }
-        }
-
-        if (!pauseMenu) return;
-
-        if (pauseMenu.activeSelf)
-        {
-            Time.timeScale = 0f;
-            GameManager.Instance.SwitchState(GameManager.GameState.PAUSE);
-            pauseMenu.SetActive(true);
-        }
-
-        else
-        {
-            UnpauseGame();
-        }
-    }
     void ShowSettingsMenu()
     {
-        mainMenu.SetActive(false);
+        // Make it so that the settings menu simply appears over whatever UI menu its on
+        //So if its over the menu, menu stays behind settings
+        //Same with gallery and shop
+
         settingsMenu.SetActive(true);
         if (masterSlider)
         {
@@ -267,6 +261,43 @@ public class CanvasManager : MonoBehaviour
     void PlayButtonSound()
     {
         asm.PlayOneShot(buttonSound, false);
+    }
+
+    void Update()
+    {
+        timeElapsed += Time.deltaTime;
+        // Check if a whole second has passed
+        int milliseconds = Mathf.FloorToInt(timeElapsed * 10);
+        if (milliseconds > lastSecond)
+        {
+            if (GameManager.Instance.GetGameState() == GameManager.GameState.GAME && player != null)
+            {
+                if (player.scoreMultiplierActive)
+                {
+                    GameManager.Instance.Score += 2;
+                    lastSecond = milliseconds;
+                }
+                else
+                {
+                    GameManager.Instance.Score += 1;
+                    lastSecond = milliseconds;
+                }
+            }
+        }
+
+        if (!pauseMenu) return;
+
+        if (pauseMenu.activeSelf)
+        {
+            Time.timeScale = 0f;
+            GameManager.Instance.SwitchState(GameManager.GameState.PAUSE);
+            pauseMenu.SetActive(true);
+        }
+
+        else
+        {
+            UnpauseGame();
+        }
     }
 
     void Quit()
