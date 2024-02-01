@@ -3,7 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterData", menuName = "Cats")]
 public class CatData : ScriptableObject
 {
-    public new string name;
+    public string catName;
+    public int cost; 
     public string backstory;
-    public Sprite portrait; 
+    public bool isOwned; 
+
+    public Sprite portraitRegular;
+    public Sprite portraitOwned;
 }

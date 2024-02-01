@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.Audio;
 using TMPro;
+using System;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] Button quitButton;
     [SerializeField] Button pauseButton; 
     [SerializeField] Button returnToMenuButton;
+    [SerializeField] Button closeSettings; 
     [SerializeField] Button resumeGame;
     [SerializeField] Button shopButton;
     [SerializeField] Button galleryButton; 
@@ -149,18 +151,32 @@ public class CanvasManager : MonoBehaviour
             EventTrigger galleryButtonTrigger = galleryButton.gameObject.AddComponent<EventTrigger>();
             AddPointerEnterEvent(galleryButtonTrigger, PlayButtonSound);
         }
+
+        if (closeSettings)
+        {
+            closeSettings.onClick.AddListener(CloseSettings);
+            EventTrigger goBackInMenuTrigger = closeSettings.gameObject.AddComponent<EventTrigger>();
+            AddPointerEnterEvent(goBackInMenuTrigger, PlayButtonSound);
+        }
+    }
+
+    private void CloseSettings()
+    {
+        settingsMenu.SetActive(false); 
     }
 
     void ShowShopMenu()
     {
-        mainMenu.SetActive(false);
-        shopMenu.SetActive(true);
+        mainMenu.SetActive(false); 
+        shopMenu.SetActive(true); 
+        backButton.gameObject.SetActive(true); 
     }
 
     void ShowGalleryMenu()
     {
         mainMenu.SetActive(false);
         galleryMenu.SetActive(true);
+        backButton.gameObject.SetActive(true);
     }
 
     void LoadTitle()
@@ -226,6 +242,9 @@ public class CanvasManager : MonoBehaviour
     void ShowMainMenu()
     {
         settingsMenu.SetActive(false);
+        galleryMenu.SetActive(false);
+        shopMenu.SetActive(false); 
+        backButton.gameObject.SetActive(false);
         mainMenu.SetActive(true);
     }
 
