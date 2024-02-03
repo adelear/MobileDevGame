@@ -9,5 +9,6 @@ public class CatData : ScriptableObject
     public bool isOwned; 
 
     public Sprite portraitRegular;
+    public Sprite portraitSelected;
     public Sprite portraitOwned;
 }

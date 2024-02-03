@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a875c8ae3f2fcb34e94b592b2100c059, type: 3}
   m_Name: CalicoCat
   m_EditorClassIdentifier: 
-  name: Lucky
+  catName: Lucky
+  cost: 0
   backstory: 
-  portrait: {fileID: 0}
+  isOwned: 0
+  portraitRegular: {fileID: 21300000, guid: ad78c4027efe16b41970f8083845772d, type: 3}
+  portraitSelected: {fileID: 21300000, guid: 38e8f6007e7b0be478cf7ade278a13ff, type: 3}
+  portraitOwned: {fileID: 21300000, guid: 38e8f6007e7b0be478cf7ade278a13ff, type: 3}

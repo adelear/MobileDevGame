@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a875c8ae3f2fcb34e94b592b2100c059, type: 3}
-  m_Name: WhiteCat
+  m_Name: BritishShorthair
   m_EditorClassIdentifier: 
-  catName: Valeria
+  catName: Mr Sunshine
   cost: 0
   backstory: 
   isOwned: 0
-  portraitRegular: {fileID: 21300000, guid: b00f7bbcbadabeb438504c3f28396321, type: 3}
-  portraitSelected: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
-  portraitOwned: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
+  portraitRegular: {fileID: 21300000, guid: fbe667503a4a9c542908dabcdd7dc680, type: 3}
+  portraitSelected: {fileID: 21300000, guid: e8992c4ad2e9d824d9cf588f5f2fbedd, type: 3}
+  portraitOwned: {fileID: 21300000, guid: e8992c4ad2e9d824d9cf588f5f2fbedd, type: 3}

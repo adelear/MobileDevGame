@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a875c8ae3f2fcb34e94b592b2100c059, type: 3}
-  m_Name: WhiteCat
+  m_Name: OrangeTabby
   m_EditorClassIdentifier: 
-  catName: Valeria
+  catName: Benji
   cost: 0
   backstory: 
   isOwned: 0
-  portraitRegular: {fileID: 21300000, guid: b00f7bbcbadabeb438504c3f28396321, type: 3}
-  portraitSelected: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
-  portraitOwned: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
+  portraitRegular: {fileID: 21300000, guid: 5e603c9340396cf499b7717058142447, type: 3}
+  portraitSelected: {fileID: 21300000, guid: 0aca6cd1876101245a44d661b091ea2d, type: 3}
+  portraitOwned: {fileID: 21300000, guid: 0aca6cd1876101245a44d661b091ea2d, type: 3}
