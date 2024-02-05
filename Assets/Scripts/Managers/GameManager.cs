@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         LoadHighScore(); 
+        LoadCoins();
     }
 
     public int Score
@@ -53,6 +54,33 @@ public class GameManager : MonoBehaviour
     }
     private int score = 0;
     public UnityEvent<int> OnScoreValueChanged;
+
+    public int Coins
+    {
+        get => coins;
+        set
+        {
+            coins = value;
+            SaveCoins(); 
+            if (OnCoinsValueChanged != null)
+                OnCoinsValueChanged.Invoke(coins);
+        }
+    }
+    private int coins = 0;
+    public UnityEvent<int> OnCoinsValueChanged;
+
+    public int CurrentCoins
+    {
+        get => currentCoins;
+        set
+        {
+            currentCoins = value;
+            if (OnCurrentCoinsValueChanged != null)
+                OnCurrentCoinsValueChanged.Invoke(currentCoins);
+        }
+    }
+    private int currentCoins = 0;
+    public UnityEvent<int> OnCurrentCoinsValueChanged;
 
     public int Lives
     {
@@ -113,6 +141,18 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         asm.PlayOneShot(LossSound, false);
         Lives = 3;
+    }
+
+    void SaveCoins()
+    {
+        PlayerPrefs.SetInt("Coins", coins);
+        PlayerPrefs.Save(); 
+    }
+
+    void LoadCoins()
+    {
+        coins = PlayerPrefs.GetInt("Coins", 0);
+        OnCoinsValueChanged?.Invoke(coins);
     }
 
     void SaveHighScore()

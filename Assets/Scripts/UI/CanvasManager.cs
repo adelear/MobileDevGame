@@ -40,7 +40,9 @@ public class CanvasManager : MonoBehaviour
 
     [Header("Text")]
     [SerializeField] TMP_Text scoreText;
-    [SerializeField] TMP_Text highScoreText; 
+    [SerializeField] TMP_Text highScoreText;
+    [SerializeField] TMP_Text currentCoinText;
+    [SerializeField] TMP_Text coinText; 
 
     [Header("Sliders")]
     [SerializeField] Slider masterSlider;
@@ -109,13 +111,25 @@ public class CanvasManager : MonoBehaviour
         if (scoreText) 
         {
             GameManager.Instance.OnScoreValueChanged.AddListener((value) => UpdateScoreText(value));
-            scoreText.text = "00000" + GameManager.Instance.Score.ToString();
+            scoreText.text = GameManager.Instance.Score.ToString("D6");
         }
 
         if (highScoreText)
         {
             GameManager.Instance.OnHighScoreChanged.AddListener((value) => UpdateHighScoreText(value));
             highScoreText.text = GameManager.Instance.HighScore.ToString("D6");
+        }
+        
+        if (coinText)
+        {
+            GameManager.Instance.OnCoinsValueChanged.AddListener((value) => UpdateCoinText(value));
+            coinText.text = GameManager.Instance.Coins.ToString();
+        }
+
+        if (currentCoinText)
+        {
+            GameManager.Instance.OnCurrentCoinsValueChanged.AddListener((value) => UpdateCurrentCoinText(value));
+            currentCoinText.text = GameManager.Instance.CurrentCoins.ToString();
         }
 
 
@@ -158,6 +172,16 @@ public class CanvasManager : MonoBehaviour
             EventTrigger goBackInMenuTrigger = closeSettings.gameObject.AddComponent<EventTrigger>();
             AddPointerEnterEvent(goBackInMenuTrigger, PlayButtonSound);
         }
+    }
+
+    private void UpdateCurrentCoinText(int value)
+    {
+        currentCoinText.text = value.ToString();
+    }
+
+    private void UpdateCoinText(int value)
+    {
+        coinText.text = value.ToString(); 
     }
 
     private void CloseSettings()

@@ -38,6 +38,8 @@ public class Powerups : MovingObjects
             if (currentPickup == PickupType.Score)
             {
                 GameManager.Instance.Score+=10;
+                GameManager.Instance.CurrentCoins += 10; 
+                GameManager.Instance.Coins += 10; 
                 Destroy(gameObject);
                 return;
             }

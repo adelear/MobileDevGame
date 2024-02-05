@@ -37,7 +37,22 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         ShowCurrentPage();
-        ownedButton.interactable = false; 
+        ownedButton.interactable = false;
+
+        if (prevButton != null)
+        {
+            prevButton.onClick.AddListener(OnPrevButtonPressed);
+        }
+
+        if (nextButton != null)
+        {
+            nextButton.onClick.AddListener(OnNextButtonPressed);
+        }
+
+        if (purchaseButton != null)
+        {
+            purchaseButton.onClick.AddListener(OnPurchaseButtonPressed);
+        } 
     }
 
     private void ShowCurrentPage()
@@ -140,4 +155,43 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private void OnPurchaseButtonPressed()
+    {
+        if (currentlySelectedIndex >= 0 && currentlySelectedIndex < catData.Length)
+        {
+            CatData selectedCat = catData[currentlySelectedIndex];
+
+            // Check if the player has enough coins to make the purchase
+            if (GameManager.Instance.Coins >= selectedCat.cost)
+            {
+                GameManager.Instance.Coins -= selectedCat.cost;
+                selectedCat.isOwned = true;
+                selectedCat.SetOwnedStatus(true);
+                // Update UI to to show the ownership status
+                ownedButton.gameObject.SetActive(true);
+                purchaseButton.gameObject.SetActive(false);
+                catPortraits[currentlySelectedIndex].sprite = selectedCat.portraitOwned;
+
+                //Invoking event so that gallery updates
+                CatEvents.InvokeOwnedCatNumValueChanged(GetOwnedCatCount());
+            }
+            else
+            {
+                Debug.Log("Not enough coins to purchase this cat!");
+            }
+        }
+    }
+
+    private int GetOwnedCatCount()
+    {
+        int count = 0;
+        foreach (var cat in catData)
+        {
+            if (cat.isOwned)
+            {
+                count++;
+            }
+        }
+        return count;
+    } 
 }

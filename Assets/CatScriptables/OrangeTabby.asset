@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrangeTabby
   m_EditorClassIdentifier: 
   catName: Benji
-  cost: 0
+  cost: 200
   backstory: 
   isOwned: 0
   portraitRegular: {fileID: 21300000, guid: 5e603c9340396cf499b7717058142447, type: 3}
