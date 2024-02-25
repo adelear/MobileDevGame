@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
         get => lives;
         set
         {
+            if (value > lives) IncreaseHealthBar();
+            else if (value < lives) DecreaseHealthBar(); 
             lives = value;
 
             if (lives > maxLives) lives = maxLives;
@@ -94,8 +96,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Lives value has changed to " + lives.ToString());
             if (lives < 0)
                 StartCoroutine(DelayedGameOver(0.5f)); 
-
-            DecreaseHealthBar(); 
 
             if (OnLifeValueChanged != null)
                 OnLifeValueChanged.Invoke(lives);
@@ -126,6 +126,14 @@ public class GameManager : MonoBehaviour
         {
             RectTransform healthRectTransform = HealthImg.GetComponent<RectTransform>();
             healthRectTransform.sizeDelta -= new Vector2(10f, 0f); 
+        }
+    }
+    public void IncreaseHealthBar()
+    {
+        if (HealthImg != null)
+        {
+            RectTransform healthRectTransform = HealthImg.GetComponent<RectTransform>();
+            healthRectTransform.sizeDelta += new Vector2(10f, 0f);
         }
     }
 

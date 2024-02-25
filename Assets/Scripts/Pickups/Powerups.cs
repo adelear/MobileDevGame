@@ -9,6 +9,7 @@ public class Powerups : MovingObjects
         Invincibility, 
         ScoreMultiplier,
         Score,  
+        Life,
         Laser,
         Nothing
     }
@@ -49,6 +50,12 @@ public class Powerups : MovingObjects
                 abilities.StartLasers(); 
                 Destroy(gameObject);
                 return; 
+            }
+            if (currentPickup == PickupType.Life)
+            {
+                GameManager.Instance.Lives++;
+                Destroy(gameObject);
+                return;
             }
 
             else
