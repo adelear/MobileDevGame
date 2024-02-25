@@ -17,7 +17,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField] Button ownedButton; 
 
     [SerializeField] CatData[] catData;
-    [SerializeField] Image[] catPortraits; 
+    [SerializeField] Image[] catPortraits;
+    [SerializeField] TMP_Text[] catCosts;
+    [SerializeField] Image[] catCoins; 
+    
+    
 
 
     private int currentPage = 0;
@@ -74,13 +78,19 @@ public class ShopManager : MonoBehaviour
                 {
                     // Change the sprite of the corresponding cat portrait image
                     catPortraits[i].sprite = currentCat.portraitOwned;
+                    catCoins[i].gameObject.SetActive(false);
+                    catCosts[i].text = "Owned"; 
                 }
                 else
                 {
                     catPortraits[i].sprite = currentCat.portraitSelected;
+                    catCoins[i].gameObject.SetActive(true);
+                    catCosts[i].gameObject.SetActive(true);
+                    catCosts[i].text = currentCat.cost.ToString();
                     purchaseButton.gameObject.SetActive(true);
                     ownedButton.gameObject.SetActive(false);
                 }
+                
 
                 catButtons[i].onClick.RemoveAllListeners();
                 catButtons[i].onClick.AddListener(() => OnCatButtonPressed(currentCat));
@@ -171,6 +181,8 @@ public class ShopManager : MonoBehaviour
                 ownedButton.gameObject.SetActive(true);
                 purchaseButton.gameObject.SetActive(false);
                 catPortraits[currentlySelectedIndex].sprite = selectedCat.portraitOwned;
+                catCosts[currentlySelectedIndex].text = "Owned";
+                catCoins[currentlySelectedIndex].gameObject.SetActive(false); 
 
                 //Invoking event so that gallery updates
                 CatEvents.InvokeOwnedCatNumValueChanged(GetOwnedCatCount());
