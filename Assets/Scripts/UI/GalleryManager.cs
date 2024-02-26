@@ -17,20 +17,18 @@ public class GalleryManager : MonoBehaviour
 
     [Header("Cat Information")]
     [SerializeField] CatData[] catData;
-    [SerializeField] CatData[] ownedCats;
-
+    [SerializeField] CatData[] ownedCats; 
     [Header("Text")]
     [SerializeField] TMP_Text catName;
 
     private int currentCat = 0;
-    private int ownedCatNum = 0; 
+    private int ownedCatNum = 0;
 
     private void Start()
     {
         CatEvents.OnOwnedCatNumValueChanged += UpdateGallery;
-        
+
         ownedCatNum = GetOwnedCatCount();
-        ownedCats = new CatData[catData.Length];
         UpdateGallery(); // Update the gallery initially
 
         if (previousButton != null)
@@ -45,13 +43,12 @@ public class GalleryManager : MonoBehaviour
 
         if (selectCatButton != null)
         {
-            selectCatButton.onClick.AddListener(OnSelectButtonPressed); 
+            selectCatButton.onClick.AddListener(OnSelectButtonPressed);
         }
-    }
-
-    private void OnSelectButtonPressed()
-    {
-        PlayerCharacter.Instance.SetCharacter(ownedCats[currentCat].characterType);   
+        for (int i = 0; i < catData.Length; i++) 
+        {
+            catData[i].SaveOwnedStatus(); 
+        }
     }
 
     private void OnDestroy()
@@ -61,8 +58,7 @@ public class GalleryManager : MonoBehaviour
 
     private void UpdateGallery()
     {
-        ownedCatNum = GetOwnedCatCount(); 
-        ownedCats = new CatData[catData.Length];
+        ownedCatNum = GetOwnedCatCount();
 
         // Populate the array with owned cats
         int count = 0;
@@ -70,6 +66,10 @@ public class GalleryManager : MonoBehaviour
         {
             if (catData[i].isOwned)
             {
+                if (ownedCats.Length <= count)
+                {
+                    Array.Resize(ref ownedCats, count + 1);
+                }
                 ownedCats[count] = catData[i];
                 count++;
             }
@@ -78,6 +78,11 @@ public class GalleryManager : MonoBehaviour
         ShowCurrentCat();
     }
 
+
+    private void OnSelectButtonPressed()
+    {
+        PlayerCharacter.Instance.SetCharacter(ownedCats[currentCat].characterType); 
+    }
     private void ShowCurrentCat()
     {
         if (currentCat >= 0 && currentCat < ownedCats.Length && ownedCats[currentCat] != null)

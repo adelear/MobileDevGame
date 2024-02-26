@@ -20,7 +20,7 @@ public class CatData : ScriptableObject
         SaveOwnedStatus();
     }
 
-    private void SaveOwnedStatus()
+    public void SaveOwnedStatus()
     {
         if (isOwned)
         {

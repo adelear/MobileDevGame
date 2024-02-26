@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WhiteCat
   m_EditorClassIdentifier: 
   catName: Valeria
-  cost: 100
+  cost: 1
   backstory: 
   isOwned: 0
   portraitRegular: {fileID: 21300000, guid: b00f7bbcbadabeb438504c3f28396321, type: 3}

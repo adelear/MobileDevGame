@@ -182,7 +182,10 @@ public class ShopManager : MonoBehaviour
                 purchaseButton.gameObject.SetActive(false);
                 catPortraits[currentlySelectedIndex].sprite = selectedCat.portraitOwned;
                 catCosts[currentlySelectedIndex].text = "Owned";
-                catCoins[currentlySelectedIndex].gameObject.SetActive(false); 
+                catCoins[currentlySelectedIndex].gameObject.SetActive(false);
+                catData[currentlySelectedIndex].SetOwnedStatus(true); 
+                catData[currentlySelectedIndex].SaveOwnedStatus();
+                GameManager.Instance.AddOwnedCat(catData[currentlySelectedIndex]); 
 
                 //Invoking event so that gallery updates
                 CatEvents.InvokeOwnedCatNumValueChanged(GetOwnedCatCount());

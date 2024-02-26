@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCharacter
+public class PlayerCharacter 
 {
     private static PlayerCharacter instance;
 
@@ -16,7 +16,7 @@ public class PlayerCharacter
         BritishShorthair
     }
 
-    public PlayerCharacters Character { get; private set; } = PlayerCharacters.BlackCat;
+    public PlayerCharacters Character; 
 
 
     public static PlayerCharacter Instance

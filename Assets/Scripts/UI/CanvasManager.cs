@@ -57,10 +57,11 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        GameObject playerObject = GameObject.Find("Player");
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player"); 
         if (playerObject != null )
         {
-            player = playerObject.GetComponent<PlayerAbilities>(); 
+            player = playerObject.GetComponent<PlayerAbilities>();
+            Debug.Log("Found Player"); 
         }
 
         asm = GetComponent<AudioManager>();
@@ -313,6 +314,21 @@ public class CanvasManager : MonoBehaviour
         int milliseconds = Mathf.FloorToInt(timeElapsed * 10);
         if (milliseconds > lastSecond)
         {
+            if (!player)
+            {
+                GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+                if (playerObject != null)
+                {
+                    player = playerObject.GetComponent<PlayerAbilities>();
+                }
+                else
+                {
+                    // Handle the case where the player object is not found in the scene
+                    Debug.Log("Player object not found in the scene.");
+                }
+            }
+ 
+
             if (GameManager.Instance.GetGameState() == GameManager.GameState.GAME && player != null)
             {
                 if (player.scoreMultiplierActive)

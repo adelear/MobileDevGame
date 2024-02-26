@@ -743,6 +743,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2955231615874759599, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
   m_PrefabInstance: {fileID: 2890907134743795807}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574865544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 703590546814134927, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
+  m_PrefabInstance: {fileID: 2890907134743795807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1686094665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7899102919224671096, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
@@ -1494,6 +1505,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4161800210407509546, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1574865544}
+    - target: {fileID: 4161800210407509546, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
       propertyPath: pauseButton
       value: 
       objectReference: {fileID: 1040178368}
@@ -2200,6 +2215,34 @@ PrefabInstance:
       propertyPath: HealthImg
       value: 
       objectReference: {fileID: 1507446511}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd315812b02af842b202db29e79c3c3, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2470297b5abe92e43b8b874bf5866995, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 29b8ce7241c0abf489fbb224e7026899, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 99f25072850f8e04d8f3b339448d8b35, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 015244524bbabcc44856552d864cafd9, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c62064eb336eb24ca9ddfa1cd34016f, type: 2}
     - target: {fileID: 4233058805099406532, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
       propertyPath: m_Name
       value: GameManager

@@ -4,14 +4,19 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEditor.U2D.Aseprite;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject HealthImg;
-    [SerializeField] AudioManager asm; 
+    [SerializeField] AudioManager asm;
     [SerializeField] AudioClip LossSound;
 
-    private int scoreMultiplier; 
+    [SerializeField] List<CatData> catData = new List<CatData>(); 
+    [SerializeField] List<CatData> ownedCats = new List<CatData>();
+    public List<CatData> OwnedCats => ownedCats;
+
+    private int scoreMultiplier;
     public static GameManager Instance { get; private set; }
     public enum GameState
     {
@@ -32,8 +37,10 @@ public class GameManager : MonoBehaviour
         if (Instance != this)
             Destroy(gameObject);
 
-        LoadHighScore(); 
+        LoadHighScore();
         LoadCoins();
+        LoadOwnedCats();
+        DontDestroyOnLoad(gameObject); 
     }
 
     public int Score
@@ -46,10 +53,10 @@ public class GameManager : MonoBehaviour
             {
                 highScore = score;
                 SaveHighScore();
-                OnHighScoreChanged?.Invoke(highScore); 
+                OnHighScoreChanged?.Invoke(highScore);
             }
             if (OnScoreValueChanged != null)
-                OnScoreValueChanged.Invoke(score); 
+                OnScoreValueChanged.Invoke(score);
         }
     }
     private int score = 0;
@@ -61,7 +68,7 @@ public class GameManager : MonoBehaviour
         set
         {
             coins = value;
-            SaveCoins(); 
+            SaveCoins();
             if (OnCoinsValueChanged != null)
                 OnCoinsValueChanged.Invoke(coins);
         }
@@ -88,14 +95,14 @@ public class GameManager : MonoBehaviour
         set
         {
             if (value > lives) IncreaseHealthBar();
-            else if (value < lives) DecreaseHealthBar(); 
+            else if (value < lives) DecreaseHealthBar();
             lives = value;
 
             if (lives > maxLives) lives = maxLives;
 
             Debug.Log("Lives value has changed to " + lives.ToString());
             if (lives < 0)
-                StartCoroutine(DelayedGameOver(0.5f)); 
+                StartCoroutine(DelayedGameOver(0.5f));
 
             if (OnLifeValueChanged != null)
                 OnLifeValueChanged.Invoke(lives);
@@ -118,14 +125,14 @@ public class GameManager : MonoBehaviour
         }
     }
     private int highScore = 0;
-    public UnityEvent<int> OnHighScoreChanged; 
+    public UnityEvent<int> OnHighScoreChanged;
 
     public void DecreaseHealthBar()
     {
         if (HealthImg != null)
         {
             RectTransform healthRectTransform = HealthImg.GetComponent<RectTransform>();
-            healthRectTransform.sizeDelta -= new Vector2(10f, 0f); 
+            healthRectTransform.sizeDelta -= new Vector2(10f, 0f);
         }
     }
     public void IncreaseHealthBar()
@@ -154,7 +161,7 @@ public class GameManager : MonoBehaviour
     void SaveCoins()
     {
         PlayerPrefs.SetInt("Coins", coins);
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
     }
 
     void LoadCoins()
@@ -166,13 +173,13 @@ public class GameManager : MonoBehaviour
     void SaveHighScore()
     {
         PlayerPrefs.SetInt("HighScore", highScore);
-        PlayerPrefs.Save(); 
+        PlayerPrefs.Save();
     }
 
     void LoadHighScore()
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
-        OnHighScoreChanged?.Invoke(highScore); 
+        OnHighScoreChanged?.Invoke(highScore);
     }
 
     public GameState GetGameState()
@@ -184,7 +191,64 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("New state has been set to " + newState); 
         currentState = newState;
-        OnGameStateChanged?.Invoke(); 
+        OnGameStateChanged?.Invoke();
     }
-}
+    void SaveOwnedCats()
+    {
+        // Convert List<CatData> to List of cat names
+        List<string> catNames = new List<string>();
+        foreach (CatData cat in ownedCats)
+        {
+            catNames.Add(cat.catName);
+        }
+
+        // Serialize List of cat names to JSON
+        string json = JsonUtility.ToJson(catNames);
+        PlayerPrefs.SetString("OwnedCats", json);
+        PlayerPrefs.Save();
+    }
+    void LoadOwnedCats()
+    {
+        Debug.Log("Loading owned cats...");
+        Debug.Log("Number of catData loaded: " + catData.Count);
+
+        // Iterate through catData to check if any cat is owned
+        for (int i = 0; i < catData.Count; i++)
+        {
+            if (catData[i].isOwned)
+            {
+                Debug.Log("Owned cat found: " + catData[i].catName);
+                AddOwnedCat(catData[i]);
+            }
+        }
+
+        Debug.Log("Owned cats loaded: " + ownedCats.Count);
+    }
+
+    // Function to add a cat to the owned cats list
+    public void AddOwnedCat(CatData cat)
+    {
+        if (!ownedCats.Contains(cat))
+        {
+            ownedCats.Add(cat);
+            SaveOwnedCats(); // Save owned cats after adding
+        }
+    }
+
+    // Function to remove a cat from the owned cats list
+    public void RemoveOwnedCat(CatData cat)
+    {
+        if (ownedCats.Contains(cat))
+        {
+            ownedCats.Remove(cat);
+            SaveOwnedCats(); // Save owned cats after removing
+        }
+    }
+
+    // Function to check if a cat is owned
+    public bool IsCatOwned(CatData cat)
+    {
+        return ownedCats.Contains(cat);
+    }
+} 
 

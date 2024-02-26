@@ -141,6 +141,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3bd315812b02af842b202db29e79c3c3, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2470297b5abe92e43b8b874bf5866995, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 29b8ce7241c0abf489fbb224e7026899, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 99f25072850f8e04d8f3b339448d8b35, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 015244524bbabcc44856552d864cafd9, type: 2}
+    - target: {fileID: 3789205462723823640, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
+      propertyPath: catData.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c62064eb336eb24ca9ddfa1cd34016f, type: 2}
     - target: {fileID: 4233058805099406532, guid: 1733ab16529b0d742a8f7f637920c669, type: 3}
       propertyPath: m_Name
       value: GameManager
