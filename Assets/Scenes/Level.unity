@@ -431,7 +431,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 8cdc402f35dab2842bf0d9893389131f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -969,7 +969,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 8cdc402f35dab2842bf0d9893389131f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1496,6 +1496,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -475
       objectReference: {fileID: 0}
+    - target: {fileID: 2955231615874759599, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
+      propertyPath: m_TagString
+      value: Health
+      objectReference: {fileID: 0}
     - target: {fileID: 3762375286077659213, guid: 4ce57384f5b8ed249996e384f673aff2, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1893,6 +1897,10 @@ PrefabInstance:
     - target: {fileID: 8932498088378555288, guid: a8f45ee1817d1fd40ab76e949c413fbe, type: 3}
       propertyPath: m_Name
       value: PowerupUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8932498088378555288, guid: a8f45ee1817d1fd40ab76e949c413fbe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

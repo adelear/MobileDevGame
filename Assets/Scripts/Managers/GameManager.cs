@@ -94,11 +94,10 @@ public class GameManager : MonoBehaviour
         get => lives;
         set
         {
+            if (value > maxLives) value = maxLives; 
             if (value > lives) IncreaseHealthBar();
             else if (value < lives) DecreaseHealthBar();
             lives = value;
-
-            if (lives > maxLives) lives = maxLives;
 
             Debug.Log("Lives value has changed to " + lives.ToString());
             if (lives < 0)
@@ -129,6 +128,14 @@ public class GameManager : MonoBehaviour
 
     public void DecreaseHealthBar()
     {
+        if (!HealthImg)
+        {
+            GameObject healthObject = GameObject.FindGameObjectWithTag("Health");
+            if (healthObject != null)
+            {
+                HealthImg = healthObject; 
+            }
+        }
         if (HealthImg != null)
         {
             RectTransform healthRectTransform = HealthImg.GetComponent<RectTransform>();
@@ -137,6 +144,14 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseHealthBar()
     {
+        if (!HealthImg)
+        {
+            GameObject healthObject = GameObject.FindGameObjectWithTag("Health");
+            if (healthObject != null)
+            {
+                HealthImg = healthObject;
+            }
+        } 
         if (HealthImg != null)
         {
             RectTransform healthRectTransform = HealthImg.GetComponent<RectTransform>();
@@ -154,7 +169,7 @@ public class GameManager : MonoBehaviour
     {
         SwitchState(GameState.DEFEAT);
         SceneManager.LoadScene("MainMenu");
-        asm.PlayOneShot(LossSound, false);
+        //asm.PlayOneShot(LossSound, false);
         Lives = 3;
     }
 

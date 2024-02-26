@@ -10,6 +10,7 @@ TagManager:
   - EnemyLasers
   - Projectile
   - BG
+  - Health
   layers:
   - Default
   - TransparentFX

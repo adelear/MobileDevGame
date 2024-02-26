@@ -287,6 +287,8 @@ public class CanvasManager : MonoBehaviour
         {
             Debug.LogError("Audio Source is not assigned.");
         }
+        GameManager.Instance.Lives = 3; 
+        GameManager.Instance.SwitchState(GameManager.GameState.GAME); 
     }
 
     void OnSliderValueChanged(float value, string volume)
