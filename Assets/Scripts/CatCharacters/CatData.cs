@@ -12,6 +12,8 @@ public class CatData : ScriptableObject
     public Sprite portraitSelected;
     public Sprite portraitOwned;
 
+    public PlayerCharacter.PlayerCharacters characterType; 
+
     public void SetOwnedStatus(bool newStatus)
     {
         isOwned = newStatus;

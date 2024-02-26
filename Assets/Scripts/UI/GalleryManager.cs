@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +42,16 @@ public class GalleryManager : MonoBehaviour
         {
             nextButton.onClick.AddListener(OnNextButtonPressed);
         }
+
+        if (selectCatButton != null)
+        {
+            selectCatButton.onClick.AddListener(OnSelectButtonPressed); 
+        }
+    }
+
+    private void OnSelectButtonPressed()
+    {
+        PlayerCharacter.Instance.SetCharacter(ownedCats[currentCat].characterType);   
     }
 
     private void OnDestroy()

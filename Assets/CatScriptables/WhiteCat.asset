@@ -19,3 +19,4 @@ MonoBehaviour:
   portraitRegular: {fileID: 21300000, guid: b00f7bbcbadabeb438504c3f28396321, type: 3}
   portraitSelected: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
   portraitOwned: {fileID: 21300000, guid: d2c11592499bb504eb31e9209fec5a2f, type: 3}
+  characterType: 2

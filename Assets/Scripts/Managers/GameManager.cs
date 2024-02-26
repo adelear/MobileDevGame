@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         DEFEAT,
         WIN
     }
-    [SerializeField] private GameState currentState; 
+    [SerializeField] private GameState currentState;
 
     public event Action OnGameStateChanged;
 
