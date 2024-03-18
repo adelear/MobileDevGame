@@ -311,6 +311,7 @@ public class CanvasManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.GetGameState() != GameManager.GameState.GAME) return;  
         timeElapsed += Time.deltaTime;
         // Check if a whole second has passed
         int milliseconds = Mathf.FloorToInt(timeElapsed * 10);

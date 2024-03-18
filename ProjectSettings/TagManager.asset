@@ -11,6 +11,8 @@ TagManager:
   - Projectile
   - BG
   - Health
+  - RouletteWheel
+  - DeathWheel
   layers:
   - Default
   - TransparentFX

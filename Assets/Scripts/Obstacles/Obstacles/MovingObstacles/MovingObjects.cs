@@ -32,6 +32,7 @@ public class MovingObjects : Obstacles
 
     protected virtual void Update()
     {
+        if (GameManager.Instance.GetGameState() != GameManager.GameState.GAME) return;  
         currentSpeed = ObstacleSpawner.Instance.GetCurrentSpeed(); 
 
         Vector3 newPosition = transform.position + new Vector3(0, -1, 0) * currentSpeed * Time.deltaTime; 
@@ -56,5 +57,7 @@ public class MovingObjects : Obstacles
         {
             if (transform.position.y <= obstacleEnd.position.y) transform.position = obstacleStart.position;  
         } 
+
+
     }
 }

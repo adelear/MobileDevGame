@@ -48,14 +48,27 @@ MonoBehaviour:
   HealthImg: {fileID: 0}
   asm: {fileID: 0}
   LossSound: {fileID: 8300000, guid: be5e314035a39e34db897afc6bba2584, type: 3}
+  deathWheel: {fileID: 2898986848864627977, guid: b7fd109dc41e5d2419f4e686f9103cab, type: 3}
+  deathWheelChild: {fileID: 7840797091551753829, guid: 834c27138fa1cb54cb978cf45869b579, type: 3}
+  catData: []
+  ownedCats: []
   currentState: 0
   OnScoreValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCoinsValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentCoinsValueChanged:
     m_PersistentCalls:
       m_Calls: []
   OnLifeValueChanged:
     m_PersistentCalls:
       m_Calls: []
   maxLives: 3
+  OnHighScoreChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &4977972147282302058
 AudioSource:
   m_ObjectHideFlags: 0

@@ -37,13 +37,10 @@ public class ObstacleSpawner : MonoBehaviour
 
     public void SpawnObstacle(int startingPoint)
     {
-        if (GameManager.Instance.GetGameState() == GameState.GAME)
-        {
-            int randomIndex = Random.Range(0, obstaclePrefabs.Count);
-            GameObject obstaclePrefab = obstaclePrefabs[randomIndex];
-            if (startingPoint == 1) Instantiate(obstaclePrefab, startPoint1.position, startPoint1.rotation);
-            else Instantiate(obstaclePrefab, startPoint2.position, startPoint2.rotation);
-        }
+        int randomIndex = Random.Range(0, obstaclePrefabs.Count);
+        GameObject obstaclePrefab = obstaclePrefabs[randomIndex];
+        if (startingPoint == 1) Instantiate(obstaclePrefab, startPoint1.position, startPoint1.rotation);
+        else Instantiate(obstaclePrefab, startPoint2.position, startPoint2.rotation);
     }
 
     public bool GetCanSpawn()

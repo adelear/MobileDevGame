@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject HealthImg;
     [SerializeField] AudioManager asm;
     [SerializeField] AudioClip LossSound;
+    [SerializeField] GameObject deathWheel;
+    [SerializeField] GameObject deathWheelChild;
 
     [SerializeField] List<CatData> catData = new List<CatData>(); 
     [SerializeField] List<CatData> ownedCats = new List<CatData>();
@@ -94,14 +96,17 @@ public class GameManager : MonoBehaviour
         get => lives;
         set
         {
-            if (value > maxLives) value = maxLives; 
+            if (value > maxLives) value = maxLives;
             if (value > lives) IncreaseHealthBar();
             else if (value < lives) DecreaseHealthBar();
             lives = value;
 
             Debug.Log("Lives value has changed to " + lives.ToString());
             if (lives < 0)
-                StartCoroutine(DelayedGameOver(0.5f));
+            {
+                DeathWheel(); 
+                //StartCoroutine(DelayedGameOver(0.5f));  
+            }
 
             if (OnLifeValueChanged != null)
                 OnLifeValueChanged.Invoke(lives);
@@ -159,18 +164,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator DelayedGameOver(float delay)
+    IEnumerator GameOver(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GameOver();
-    }
-
-    void GameOver()
-    {
         SwitchState(GameState.DEFEAT);
         SceneManager.LoadScene("MainMenu");
         //asm.PlayOneShot(LossSound, false);
         Lives = 3;
+        
+    }
+
+    public void DelayedGameOver()
+    {
+        StartCoroutine(GameOver(0.0f));  
     }
 
     void SaveCoins()
@@ -265,5 +271,24 @@ public class GameManager : MonoBehaviour
     {
         return ownedCats.Contains(cat);
     }
-} 
+
+    void DeathWheel()
+    {
+        deathWheel = GameObject.FindGameObjectWithTag("RouletteWheel");
+        deathWheelChild = GameObject.FindGameObjectWithTag("DeathWheel");
+
+        if (!deathWheel.GetComponent<RouletteManager>().canRoll)
+        {
+            Debug.LogWarning("IS ANYTHING HAPPENING");
+            DelayedGameOver();
+        }
+        else
+        {
+            Debug.LogWarning("IS ANYTHING HAPPENING");
+            deathWheel.transform.Find("DeathWheel").gameObject.SetActive(true);
+            GameManager.Instance.SwitchState(GameManager.GameState.PAUSE);
+        }
+    }
+
+}
 
